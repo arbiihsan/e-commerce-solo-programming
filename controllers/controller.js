@@ -71,7 +71,8 @@ class Controller {
             });
     }
     static addProductForm(req, res) {
-        res.render('addProductForm')
+        const { errors } = req.query
+        res.render('addProductForm', { errors })
     }
     static addProduct(req, res) {
         const { productName, image, description, price, stock, CategoryId } = req.body;
@@ -80,9 +81,14 @@ class Controller {
             .then(() => {
                 res.redirect('/homeadmin');
             })
-            .catch(error => {
-                res.send(error);
-            });
+            .catch((err) => {
+                if (err.name === 'SequelizeValidationError') {
+                    const errors = err.errors.map(el => el.message)
+                    res.redirect(`/homeadmin/add?errors=${errors}`)
+                } else {
+                    res.send(err)
+                }
+            })
     }
     static editProductForm(req, res) {
         const { id } = req.params

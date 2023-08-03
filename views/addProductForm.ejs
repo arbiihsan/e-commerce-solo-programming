@@ -27,29 +27,35 @@
 
     <div class="container">
         <h1>Add Products</h1>
+        <% errors && errors.split(',').forEach(el=> { %>
+            <div style="color: red;">
+                <%= el %>
+            </div>
+            <% }); %>
+        <br>
         <form action="/homeadmin/add" method="post">
             
                 <label for="productName">Product Name:</label><br>
-                <input type="text" id="productName" name="productName" required><br>
+                <input type="text" id="productName" name="productName" ><br>
                 <br>
                 <label for="image">Image:</label><br>
-                <input type="text" id="image" name="image" required><br>
+                <input type="text" id="image" name="image" ><br>
                 <br>
             
                 <label for="description">Description:</label><br>
-                <input type="text" id="description" name="description" required><br>
+                <input type="text" id="description" name="description" ><br>
                 <br>
             
                 <label for="price">Price:</label><br>
-                <input type="number" id="price" name="price" required><br>
+                <input type="number" id="price" name="price" ><br>
                 <br>
             
                 <label for="stock">Stock:</label><br>
-                <input type="number" id="stock" name="stock" required><br>
+                <input type="number" id="stock" name="stock" ><br>
                 <br>
             
                 <label for="category">Category:</label><br>
-                <select name="CategoryId" id="category" required>
+                <select name="CategoryId" id="category" >
                     <option disabled selected>Select a category</option>
                     <option value="1">Vitamin-Suplemen</option>
                     <option value="2">Asma</option>
