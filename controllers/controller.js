@@ -153,66 +153,87 @@ class Controller {
     }
     static async checkout(req, res) {
         const cart = req.session.cart || {};
-    
+
         try {
-          const transactionPromises = Object.keys(cart).map(async (productId) => {
-            const product = await Product.findByPk(productId);
-            const quantity = cart[productId].quantity;
-            const userId = req.session.userId;
-    
-            // Create a transaction in the database
-            await Transaction.create({
-              status: true,
-              nameOfTransaction: product.productName + new Date().toISOString(),
-              UserId: userId,
-              ProductId: productId,
+            const transactionPromises = Object.keys(cart).map(async (productId) => {
+                const product = await Product.findByPk(productId);
+                const quantity = cart[productId].quantity;
+                const userId = req.session.userId;
+
+                // Create a transaction in the database
+                await Transaction.create({
+                    status: true,
+                    nameOfTransaction: product.productName + new Date().toISOString(),
+                    UserId: userId,
+                    ProductId: productId,
+                });
+
+                // Reduce the product stock
+                product.stock -= quantity;
+                await product.save();
+
+                return { product, quantity };
             });
-    
-            // Reduce the product stock
-            product.stock -= quantity;
-            await product.save();
-    
-            return { product, quantity };
-          });
-    
-          const cartItems = await Promise.all(transactionPromises);
-    
-          // Clear the cart after checkout
-          req.session.cart = {};
-    
-          // Send email using Nodemailer
-          const userProfile = await UserProfile.findOne({
-            where: { UserId: req.session.userId },
-          });
-    
-          const userEmail = userProfile.email;
-          const userAddress = userProfile.address;
-          const productDetails = cartItems
-            .map(({ product, quantity }) => `${quantity}x ${product.productName}`)
-            .join(', ');
-    
-          const mailOptions = {
-            from: 'arbiihsan@gmail.com',
-            to: userEmail,
-            subject: 'Transaction Completed',
-            text: `Transaction has been completed, your purchase of ${productDetails} will be sent to ${userAddress}.`,
-          };
-    
-          transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-              console.log(error);
-            } else {
-              console.log('Email sent: ' + info.response);
-            }
-          });
-    
-          res.redirect('/home');
+
+            const cartItems = await Promise.all(transactionPromises);
+
+            // Clear the cart after checkout
+            req.session.cart = {};
+
+            // Send email using Nodemailer
+            const userProfile = await UserProfile.findOne({
+                where: { UserId: req.session.userId },
+            });
+
+            const userEmail = userProfile.email;
+            const userAddress = userProfile.address;
+            const productDetails = cartItems
+                .map(({ product, quantity }) => `${quantity}x ${product.productName}`)
+                .join(', ');
+
+            const mailOptions = {
+                from: 'arbiihsan@gmail.com',
+                to: userEmail,
+                subject: 'Transaction Completed',
+                text: `Transaction has been completed, your purchase of ${productDetails} will be sent to ${userAddress}.`,
+            };
+
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
+
+            res.redirect('/home');
         } catch (err) {
-          console.error(err);
-          res.status(500).send('Error processing the checkout.');
+            console.error(err);
+            res.status(500).send('Error processing the checkout.');
         }
-      }
-    
+    }
+    static showTransactionData(req, res) {
+        Transaction.findAll({
+            include: [
+                {
+                    model: User,
+                    include: {
+                        model: UserProfile,
+                    },
+                },
+                {
+                    model: Product,
+                },
+            ],
+        })
+        .then((transactions) => {
+            // console.log(transactions);
+            res.render('transactionData', { transactions, formatRupiah });
+        })
+        .catch(error => {
+            res.send(error)
+        })
+    }
 }
 
 

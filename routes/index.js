@@ -29,9 +29,6 @@ router.get('/cart', Controller.showCart);
 router.post('/checkout', Controller.checkout);
 router.get('/add-to-cart/:id', Controller.addToCart);
 
-// router.get('/home/profile/:id', Controller.test)
-// router.post('/home/profile/:id', Controller.test)
-
 
 router.use(function (req, res, next) {
     if(req.session.role !== "admin") {
@@ -45,6 +42,7 @@ router.use(function (req, res, next) {
 router.get('/homeadmin', Controller.showHomeAdmin)
 router.get('/homeadmin/add', Controller.addProductForm)
 router.post('/homeadmin/add', Controller.addProduct)
+router.get('/transaction-data', Controller.showTransactionData);
 router.get('/edit/:id', Controller.editProductForm)
 router.post('/edit/:id', Controller.editProduct)
 router.get('/delete/:id', Controller.deleteProduct)
