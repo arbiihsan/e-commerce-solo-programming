@@ -10,7 +10,12 @@ class Controller {
     }
     static showHome(req, res) {
         const { searchProduct, categoryTag } = req.query;
-        let option = {};
+        let option = {
+            order: [[
+                'productName',
+                'ASC'
+            ]]
+        };
 
         if (searchProduct) {
             option.where = {
@@ -48,7 +53,12 @@ class Controller {
                 })
         }
 
-        Product.findAll()
+        Product.findAll({
+            order: [[
+                'productName',
+                'ASC'
+            ]]
+        })
             .then((productsData) => {
                 res.render('homeadmin', { productsData, formatRupiah })
             })
@@ -219,16 +229,16 @@ class Controller {
 
         if (searchProduct) {
             Transaction.getTransactionsByProduct(searchProduct)
-            .then((transactions) => {
-                transactions.forEach((transaction) => {
-                    transaction.formattedDate = transaction.formatDate();
-                });
+                .then((transactions) => {
+                    transactions.forEach((transaction) => {
+                        transaction.formattedDate = transaction.formatDate();
+                    });
 
-                res.render('transactionData', { transactions, formatRupiah });
-            })
-            .catch(error => {
-                res.send(error);
-            });
+                    res.render('transactionData', { transactions, formatRupiah });
+                })
+                .catch(error => {
+                    res.send(error);
+                });
         }
         Transaction.findAll({
             include: [
