@@ -160,7 +160,6 @@ class Controller {
                 const quantity = cart[productId].quantity;
                 const userId = req.session.userId;
 
-                // Create a transaction in the database
                 await Transaction.create({
                     status: true,
                     nameOfTransaction: product.productName + new Date().toISOString(),
@@ -168,7 +167,6 @@ class Controller {
                     ProductId: productId,
                 });
 
-                // Reduce the product stock
                 product.stock -= quantity;
                 await product.save();
 
@@ -177,10 +175,8 @@ class Controller {
 
             const cartItems = await Promise.all(transactionPromises);
 
-            // Clear the cart after checkout
             req.session.cart = {};
 
-            // Send email using Nodemailer
             const userProfile = await UserProfile.findOne({
                 where: { UserId: req.session.userId },
             });
@@ -213,6 +209,21 @@ class Controller {
         }
     }
     static showTransactionData(req, res) {
+        const { searchProduct } = req.query;
+
+        if (searchProduct) {
+            Transaction.getTransactionsByProduct(searchProduct)
+            .then((transactions) => {
+                transactions.forEach((transaction) => {
+                    transaction.formattedDate = transaction.formatDate();
+                });
+
+                res.render('transactionData', { transactions, formatRupiah });
+            })
+            .catch(error => {
+                res.send(error);
+            });
+        }
         Transaction.findAll({
             include: [
                 {
@@ -226,13 +237,16 @@ class Controller {
                 },
             ],
         })
-        .then((transactions) => {
-            // console.log(transactions);
-            res.render('transactionData', { transactions, formatRupiah });
-        })
-        .catch(error => {
-            res.send(error)
-        })
+            .then((transactions) => {
+                transactions.forEach((transaction) => {
+                    transaction.formattedDate = transaction.formatDate();
+                });
+
+                res.render('transactionData', { transactions, formatRupiah });
+            })
+            .catch(error => {
+                res.send(error);
+            });
     }
 }
 

@@ -35,6 +35,11 @@
         </li>
     </ul>
     <h1>Transaction Data</h1>
+    <form action="/transaction-data" method="get">
+        <input type="text" name="searchProduct" placeholder="Search">
+        <button type="submit">Search</button>
+    </form>
+    <br>
     <table>
         <thead>
             <tr>
@@ -49,7 +54,7 @@
             <% transactions.forEach((transaction) => { %>
                 <tr>
                     <td><%= transaction.status %></td>
-                    <td><%= transaction.createdAt %></td>
+                    <td><%= transaction.formattedDate %></td>
                     <% if (transaction.User && transaction.User.username) { %>
                         <td><%= transaction.User.username %></td>
                     <% } else { %>
