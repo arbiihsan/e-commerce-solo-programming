@@ -43,7 +43,6 @@
                 </ul>
                 <div>
                     <a href="/stock"><button>Transaction Data</button></a>
-                    <a href="/homeadmin/viewuser"><button>View as user</button></a>
                     <a href="/homeadmin/add"><button>Add Products</button></a>
                     <br>
                     <br>
@@ -67,6 +66,9 @@
                         <h5 class="card-title">
                             <%= el.productName %>
                         </h5>
+                        <p class="card-text">
+                            <%= el.stock %> products left
+                        </p>
                         <p class="card-text">
                             <%= el.description %>
                         </p>

@@ -1,0 +1,79 @@
+<!-- cart.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <style>
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            gap: 20px;
+        }
+
+        .card {
+            width: 200px;
+            background-color: aliceblue;
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <a href="/home">Halodek</a>
+        <div>
+            <ul>
+                <li>
+                    <a href="/home">All Products</a>
+                </li>
+                <li>
+                    <a href="#">Categories</a>
+                </li>
+                <li>
+                    <a href="/logout" style="color: green;">Logout</a>
+                </li>
+            </ul>
+            <h1>Shopping Cart</h1>
+            <div class="container">
+                <% if (cartItems.length> 0) { %>
+                    <div class="card-container">
+                        <% cartItems.forEach((item)=> { %>
+                            <div class="card">
+                                <img src="/<%= item.product.image %>" class="card-img-top" alt="Product Image">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <%= item.product.productName %>
+                                    </h5>
+                                    <p class="card-text">
+                                        Quantity: <%= item.quantity %>
+                                    </p>
+                                    <p class="card-text">
+                                        Price: <%= formatRupiah(item.product.price) %>
+                                    </p>
+                                </div>
+                            </div>
+                            <% }) %>
+                    </div>
+                    <form action="/checkout" method="post">
+                        <button type="submit">Checkout</button>
+                    </form>
+                    <form action="/clear-cart" method="post">
+                        <button type="submit">Clear Cart</button>
+                    </form>
+                    <% } else { %>
+                        <p>Your cart is empty.</p>
+                        <% } %>
+            </div>
+
+</body>
+
+</html>

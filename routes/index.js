@@ -25,10 +25,12 @@ router.use(function (req, res, next) {
 })
 
 router.get('/home', Controller.showHome)
-router.get('/cart', Controller.test)
-router.get('/stock', Controller.test)
-router.get('/home/profile/:id', Controller.test)
-router.post('/home/profile/:id', Controller.test)
+router.get('/cart', Controller.showCart);
+router.post('/checkout', Controller.checkout);
+router.get('/add-to-cart/:id', Controller.addToCart);
+
+// router.get('/home/profile/:id', Controller.test)
+// router.post('/home/profile/:id', Controller.test)
 
 
 router.use(function (req, res, next) {
@@ -41,7 +43,6 @@ router.use(function (req, res, next) {
 })
 
 router.get('/homeadmin', Controller.showHomeAdmin)
-router.get('/homeadmin/viewuser', Controller.test)
 router.get('/homeadmin/add', Controller.addProductForm)
 router.post('/homeadmin/add', Controller.addProduct)
 router.get('/edit/:id', Controller.editProductForm)

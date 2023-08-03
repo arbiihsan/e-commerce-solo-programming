@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Product.belongsTo(models.Category)
-      Product.hasMany(models.Transaction)
+      // Product.hasMany(models.Transaction)
+      Product.belongsToMany(models.User, { through: 'Transaction' })
     }
   }
   Product.init({
@@ -20,7 +21,8 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     price: DataTypes.INTEGER,
     stock: DataTypes.INTEGER,
-    image: DataTypes.TEXT
+    image: DataTypes.TEXT,
+    CategoryId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Product',
