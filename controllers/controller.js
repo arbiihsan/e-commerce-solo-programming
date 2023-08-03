@@ -1,6 +1,7 @@
 const { formatRupiah } = require('../helpers/formatRupiah')
 const { Transaction, User, Product, Category, UserProfile } = require('../models');
 const { Op } = require('sequelize')
+const transporter = require('../emailConfig');
 
 
 class Controller {
@@ -150,48 +151,67 @@ class Controller {
                 res.send(err);
             });
     }
-    static checkout(req, res) {
-        const { cart } = req.session;
-        const productIds = Object.keys(cart);
-
-        // Create a transaction for each cart item
-        Promise.all(
-            productIds.map((productId) => {
-                const quantity = cart[productId].quantity;
-                return Product.findByPk(productId).then((product) => {
-                    if (!product) {
-                        throw new Error('Product not found.');
-                    }
-
-                    if (product.stock < quantity) {
-                        throw new Error('Insufficient stock for product: ' + product.productName);
-                    }
-
-                    // Decrement the product stock
-                    product.stock -= quantity;
-                    return product.save().then(() => {
-                        const nameOfTransaction = product.productName + ' - ' + new Date().toISOString();
-                        return Transaction.create({
-                            status: true,
-                            nameOfTransaction,
-                            UserId: req.session.userId,
-                            ProductId: productId,
-                        });
-                    });
-                });
-            })
-        )
-        .then(() => {
-            // After successful checkout, clear the cart and redirect to the home page
-            req.session.cart = {};
-            res.redirect('/home');
-        })
-        .catch((error) => {
-            console.error('Checkout error:', error);
-            // Handle the error, display a message, etc.
-            res.send('Checkout failed: ' + error.message);
-        });
-    }
+    static async checkout(req, res) {
+        const cart = req.session.cart || {};
+    
+        try {
+          const transactionPromises = Object.keys(cart).map(async (productId) => {
+            const product = await Product.findByPk(productId);
+            const quantity = cart[productId].quantity;
+            const userId = req.session.userId;
+    
+            // Create a transaction in the database
+            await Transaction.create({
+              status: true,
+              nameOfTransaction: product.productName + new Date().toISOString(),
+              UserId: userId,
+              ProductId: productId,
+            });
+    
+            // Reduce the product stock
+            product.stock -= quantity;
+            await product.save();
+    
+            return { product, quantity };
+          });
+    
+          const cartItems = await Promise.all(transactionPromises);
+    
+          // Clear the cart after checkout
+          req.session.cart = {};
+    
+          // Send email using Nodemailer
+          const userProfile = await UserProfile.findOne({
+            where: { UserId: req.session.userId },
+          });
+    
+          const userEmail = userProfile.email;
+          const userAddress = userProfile.address;
+          const productDetails = cartItems
+            .map(({ product, quantity }) => `${quantity}x ${product.productName}`)
+            .join(', ');
+    
+          const mailOptions = {
+            from: 'arbiihsan@gmail.com',
+            to: userEmail,
+            subject: 'Transaction Completed',
+            text: `Transaction has been completed, your purchase of ${productDetails} will be sent to ${userAddress}.`,
+          };
+    
+          transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+              console.log(error);
+            } else {
+              console.log('Email sent: ' + info.response);
+            }
+          });
+    
+          res.redirect('/home');
+        } catch (err) {
+          console.error(err);
+          res.status(500).send('Error processing the checkout.');
+        }
+      }
     
 }
 
