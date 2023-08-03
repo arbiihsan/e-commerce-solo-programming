@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Products</title>
+</head>
+
+<body>
+    <nav>
+        <div>
+            <a href="/homeadmin">Halodek</a>
+            
+            <div>
+                <ul>
+                    <li>
+                        <a href="/homeadmin">All Products</a>
+                    </li>
+                    <li>
+                        <a href="#">Categories</a>
+                    </li>
+                    <li>
+                        <a href="/logout" style="color: green;">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Edit Products</h1>
+        <form action="/edit/<%= item.id %>" method="post">
+            
+                <label for="productName">Product Name:</label><br>
+                <input type="text" id="productName" name="productName" value="<%= item.productName %>" required><br>
+                <br>
+                <label for="image">Image:</label><br>
+                <input type="text" id="image" name="image" value="<%= item.image %>" required><br>
+                <br>
+            
+                <label for="description">Description:</label><br>
+                <input type="text" id="description" name="description" value="<%= item.description %>" required><br>
+                <br>
+            
+                <label for="price">Price:</label><br>
+                <input type="number" id="price" name="price" value="<%= item.price %>" required><br>
+                <br>
+            
+                <label for="stock">Stock:</label><br>
+                <input type="number" id="stock" name="stock" value="<%= item.stock %>" required><br>
+                <br>
+            
+                <label for="category">Category:</label><br>
+                <select name="CategoryId" id="category" required>
+                    <option value="<%= item.Category.id %>" selected hidden><%= item.Category.categoryTag %></option>
+                    <option value="1">Vitamin-Suplemen</option>
+                    <option value="2">Asma</option>
+                    <option value="3">Kesehatan Jantung</option>
+                    <option value="4">Kebutuhan Covid-19</option>
+                </select><br>
+                <br>
+                <br>
+            <button type="submit">Edit Item</button>
+        </form>
+    </div>
+
+</body>
+
+</html>

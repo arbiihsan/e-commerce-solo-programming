@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            gap: 20px;
+        }
+
+        .card {
+            width: 200px;
+            background-color: aliceblue;
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<nav >
+    <div>
+        <a href="/home">Halodek</a>
+        <div>
+            <ul>
+                <li>
+                    <a href="/home">All Products</a>
+                </li>
+                <li>
+                    <a href="#">Categories</a>
+                </li>
+                <li>
+                    <a href="/logout" style="color: green;">Logout</a>
+                </li>
+            </ul>
+            <a href="/cart"><button>Transaction List</i></button></a>
+            <a href="/home/profile/<%# id %>"><button>Your Profile</i></button></a>
+            <br>
+            <br>
+            <form action="/home" method="get">
+                <input name="searchProduct" placeholder="Search">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div> 
+</nav>
+
+<body>
+    <h1>Halodek</h1>
+    <a href="/home"><button>All</button></a>
+    <a href="/home?categoryTag=Vitamin-Suplemen"><button name="categoryTag" value="Vitamin-Suplemen">Vitamin & Suplemen</button></a>
+    <a href="/home?categoryTag=Asma"><button name="categoryTag" value="Asma">Asma</button></a>
+    <a href="/home?categoryTag=Kesehatan-Jantung"><button name="categoryTag" value="Kesehatan-Jantung">Kesehatan Jantung</button></a>
+    <a href="/home?categoryTag=Kebutuhan-Covid-19"><button name="categoryTag" value="Kebutuhan-Covid-19">Kebutuhan Covid-19</button></a>    
+    <br>
+    <br>
+    <br>
+    <div class="container">
+        <div class="card-container">
+            <% productsData.forEach((el) => { %>
+            <div class="card">
+                <img src="/<%= el.image %>" class="card-img-top" alt="Product Image">
+                <div class="card-body">
+                    <h5 class="card-title"><%= el.productName %></h5>
+                    <p class="card-text"><%= el.description %></p>
+                    <p class="card-price"><%= formatRupiah(el.price) %></p>
+                    <a href="#"><button>Buy</button></a>
+                </div>
+            </div>
+            <% }) %>
+    </div>
+</body>
+
+
+</html>

@@ -5,16 +5,24 @@ module.exports = {
   up (queryInterface, Sequelize) {
     return queryInterface.bulkInsert('Categories', [
       {
-        categoryTag: "Vitamin & Suplemen",
+        categoryTag: "Vitamin-Suplemen",
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         categoryTag: "Asma",
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
-        categoryTag: "Kesehatan Jantung",
+        categoryTag: "Kesehatan-Jantung",
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
-        categoryTag: "Kebutuhan Covid-19",
+        categoryTag: "Kebutuhan-Covid-19",
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
       
     ], {})
