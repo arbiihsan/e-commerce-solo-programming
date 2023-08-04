@@ -1,0 +1,195 @@
+body {
+    padding: 1px 20px 20px;
+    font-family: "Poppins", sans-serif;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.myEmployees {
+    font-size: 36px;
+    font-weight: 600;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.myEmployees a {
+    text-decoration: none;
+}
+
+.addSortFilter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 40px;
+
+    border-radius: 50px;
+    background: #e0e0e0;
+    box-shadow: 20px 20px 60px #bebebe,
+        -20px -20px 60px #ffffff;
+}
+
+.addSortFilter .addEmployeeButton {
+    order: 1;
+}
+
+.addSortFilter .sortAndFilter {
+    order: 2;
+    display: flex;
+    align-items: center;
+}
+
+.addSortFilter .sortBy {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.addSortFilter .sortBy p {
+    margin-right: 10px;
+}
+
+.addSortFilter .sortBy button {
+    margin-right: 10px;
+}
+
+.addSortFilter button {
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 16px;
+
+    border-radius: 50px;
+    background: linear-gradient(145deg, #9bc2ac, #b8e6cc);
+    box-shadow: 20px 20px 60px #92b7a2,
+        -20px -20px 60px #c6f7dc;
+    transition: background-color 0.8s ease, box-shadow 1s ease;
+}
+
+.addSortFilter button:hover {
+    border-radius: 50px;
+    background: linear-gradient(145deg, #83f19e, #6ecb85);
+    box-shadow:  20px 20px 60px #68bf7e,
+                 -20px -20px 60px #8cffaa;
+}
+
+.addSortFilter p {
+    margin: 0;
+    font-weight: bold;
+}
+
+.addSortFilter form {
+    display: flex;
+    align-items: center;
+}
+
+.addSortFilter select {
+    margin-right: 10px;
+    padding: 7px 10px;
+    font-size: 16px;
+    border-radius: 50px;
+}
+
+.addSortFilter button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 20px;
+    padding: 10px 20px;
+}
+
+.employeeCards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    max-width: 300px;
+    margin: 20px;
+    padding: 25px 30px;
+
+    border-radius: 30px;
+    background: #e0e0e0;
+    box-shadow:  20px 20px 60px #bebebe,
+                 -20px -20px 60px #ffffff;
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+    border-radius: 30px;
+    margin-bottom: 10px;
+}
+
+.card h2 {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.card p {
+    margin: 5px 0;
+}
+
+.card .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.card .contact {
+    margin-bottom: 20px;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.actions a {
+    width: 100%;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 50px;
+    text-align: center;
+    text-decoration: none;
+
+    border-radius: 50px;
+    background: linear-gradient(145deg, #a4bccb, #c3e0f2);
+    box-shadow: 20px 20px 60px #9bb2c0,
+        -20px -20px 60px #d1f0ff;
+}
+
+.actions a:last-child {
+    border-radius: 50px;
+    background: linear-gradient(145deg, #cba4a4, #f2c3c3);
+    box-shadow: 20px 20px 60px #c09b9b,
+        -20px -20px 60px #ffd1d1;
+    margin-left: 5px;
+}
+
+.actions a:hover {
+    border-radius: 50px;
+    background: linear-gradient(145deg, #83c6f1, #6ea7cb);
+    box-shadow: 20px 20px 60px #689dbf,
+        -20px -20px 60px #8cd5ff;
+}
+
+
+.actions a:last-child:hover {
+    border-radius: 50px;
+    background: linear-gradient(145deg, #f18383, #cb6e6e);
+    box-shadow:  20px 20px 60px #bf6868,
+                 -20px -20px 60px #ff8c8c;
+}

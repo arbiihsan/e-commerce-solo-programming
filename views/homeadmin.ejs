@@ -5,75 +5,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <style>
-        .card-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-            gap: 20px;
-        }
-
-        .card {
-            width: 200px;
-            background-color: aliceblue;
-        }
-
-        .card-img-top {
-            width: 100%;
-            height: auto;
-        }
-    </style>
+    <link rel="stylesheet" href="home.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <nav>
-        <div>
-            <a href="/homeadmin">Halodek</a>
-            <div>
-                <ul>
-                    <li>
-                        <a href="/homeadmin">All Products</a>
-                    </li>
-                    <li>
-                        <a href="/logout" style="color: green;">Logout</a>
-                    </li>
-                </ul>
-                <div>
-                    <a href="/transaction-data"><button>Transaction Data</button></a>
-                    <a href="/homeadmin/add"><button>Add Products</button></a>
-                    <br>
-                    <br>
-                    <form action="/homeadmin" method="get">
-                        <input type="text" name="searchProduct" placeholder="Search">
-                        <button type="submit">Search</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </nav>
     
+    <div class="header">
+        <h1 class="myEmployees"><a href="/homeadmin">Halodek</a></h1>
+    </div>
+    <div class="addSortFilter">
+        <div class="addEmployeeButton">
+            <a href="/transaction-data"><button>Transaction Data</button></a>
+            <a href="/homeadmin/add"><button>Add Products</button></a>
+        </div>
 
+        <div class="filter">
+            <form action="/homeadmin" method="get">
+                <input type="text" name="searchProduct" placeholder="Search">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+    <br>
+    <br>
     <div class="container">
-        <h1>Halodek</h1>
-        <div class="card-container">
+        <div class="employeeCards">
             <% productsData.forEach((el)=> { %>
                 <div class="card">
                     <img src="/<%= el.image %>" class="card-img-top" alt="Product Image">
                     <div class="card-body">
-                        <h5 class="card-title">
+                        <h5 class="profile">
                             <%= el.productName %>
                         </h5>
-                        <p class="card-text">
+                        <p class="contact">
                             <%= el.stock %> products left
                         </p>
-                        <p class="card-text">
+                        <p class="contact">
                             <%= el.description %>
                         </p>
-                        <p class="card-price">
+                        <p class="contact">
                             <%= formatRupiah(el.price) %>
                         </p>
-                        <a href="/edit/<%= el.id %>"><button>Edit</button></a>
-                        <a href="/delete/<%= el.id %>"><button>Delete</button></a>
+                        <div class="actions">
+                            <a href="/edit/<%= el.id %>">Edit</a>
+                            <a href="/delete/<%= el.id %>">Delete</a>
+                        </div>
                     </div>
                 </div>
                 <% }) %>

@@ -25,12 +25,17 @@
             height: auto;
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="home.css">
+
 </head>
 
 <body>
     <div>
-        <a href="/home">Halodek</a>
-        <div>
+        <div class="header">
+            <h1 class="myEmployees"><a href="/home">Shopping Cart</a></h1>
+        </div>
+        <!-- <div>
             <ul>
                 <li>
                     <a href="/home">All Products</a>
@@ -38,11 +43,11 @@
                 <li>
                     <a href="/logout" style="color: green;">Logout</a>
                 </li>
-            </ul>
-            <h1>Shopping Cart</h1>
+            </ul> -->
+            <!-- <h1>Shopping Cart</h1> -->
             <div class="container">
                 <% if (cartItems.length> 0) { %>
-                    <div class="card-container">
+                    <div class="employeeCards">
                         <% cartItems.forEach((item)=> { %>
                             <div class="card">
                                 <img src="/<%= item.product.image %>" class="card-img-top" alt="Product Image">
@@ -50,10 +55,10 @@
                                     <h5 class="card-title">
                                         <%= item.product.productName %>
                                     </h5>
-                                    <p class="card-text">
+                                    <p class="contact">
                                         Quantity: <%= item.quantity %>
                                     </p>
-                                    <p class="card-text">
+                                    <p class="contact">
                                         Price: <%= formatRupiah(item.product.price) %>
                                     </p>
                                 </div>
@@ -61,11 +66,15 @@
                             <% }) %>
                     </div>
                     <br>
-                    <form action="/checkout" method="post">
-                        <button type="submit">Checkout</button>
-                    </form>
+                    <div class="checkout">
+                        <form action="/checkout" method="post">
+                            <button type="submit">Checkout</button>
+                        </form>
+                    </div>
                     <% } else { %>
-                        <p>Your cart is empty.</p>
+                        <div class="header">
+                            <h1 class="myEmployees">Your cart is empty.</h1>
+                        </div>
                         <% } %>
             </div>
 

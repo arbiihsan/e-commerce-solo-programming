@@ -4,55 +4,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/form.css">
     <title>Add Products</title>
 </head>
 
 <body>
-    <nav>
-        <div>
-            <a href="/homeadmin">Halodek</a>
-            
-            <div>
-                <ul>
-                    <li>
-                        <a href="/homeadmin">All Products</a>
-                    </li>
-                    <li>
-                        <a href="/logout" style="color: green;">Logout</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <div class="header">
+        <h1 class="myEmployees"><a href="/homeadmin">Halodek</a></h1>
+    </div>
 
     <div class="container">
-        <h1>Add Products</h1>
+        <h2 class="link">Add Products</h2>
         <% errors && errors.split(',').forEach(el=> { %>
             <div style="color: red;">
                 <%= el %>
             </div>
             <% }); %>
-        <br>
         <form action="/homeadmin/add" method="post">
             
                 <label for="productName">Product Name:</label><br>
                 <input type="text" id="productName" name="productName" ><br>
-                <br>
+
                 <label for="image">Image:</label><br>
                 <input type="text" id="image" name="image" ><br>
-                <br>
             
                 <label for="description">Description:</label><br>
                 <input type="text" id="description" name="description" ><br>
-                <br>
             
                 <label for="price">Price:</label><br>
                 <input type="number" id="price" name="price" ><br>
-                <br>
             
                 <label for="stock">Stock:</label><br>
                 <input type="number" id="stock" name="stock" ><br>
-                <br>
             
                 <label for="category">Category:</label><br>
                 <select name="CategoryId" id="category" >
@@ -62,7 +46,6 @@
                     <option value="3">Kesehatan Jantung</option>
                     <option value="4">Kebutuhan Covid-19</option>
                 </select><br>
-                <br>
                 <br>
             <button type="submit">Add Item</button>
         </form>

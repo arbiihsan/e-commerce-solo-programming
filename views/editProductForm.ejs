@@ -4,29 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/form.css">
     <title>Edit Products</title>
 </head>
 
 <body>
-    <nav>
-        <div>
-            <a href="/homeadmin">Halodek</a>
-            
-            <div>
-                <ul>
-                    <li>
-                        <a href="/homeadmin">All Products</a>
-                    </li>
-                    <li>
-                        <a href="/logout" style="color: green;">Logout</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <div class="header">
+        <h1 class="myEmployees"><a href="/homeadmin">Halodek</a></h1>
+    </div>
 
     <div class="container">
-        <h1>Edit Products</h1>
+        <h2 class="link">Edit Products</h2>
+
         <form action="/edit/<%= item.id %>" method="post">
             
                 <label for="productName">Product Name:</label><br>

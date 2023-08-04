@@ -1,10 +1,12 @@
-<!-- transactionData.ejs -->
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="home.css">
+
     <title>Transaction Data</title>
     <style>
         table {
@@ -24,22 +26,24 @@
     </style>
 </head>
 <body>
-    <a href="/homeadmin">Halodek</a>
+    <div class="header">
+        <h1 class="myEmployees"><a href="/homeadmin">Halodek</a></h1>
+    </div>
+    
+    <h2 class="link">Transaction Data</h2>
 
-    <ul>
-        <li>
-            <a href="/homeadmin">All Products</a>
-        </li>
-        <li>
-            <a href="/logout" style="color: green;">Logout</a>
-        </li>
-    </ul>
-    <h1>Transaction Data</h1>
-    <form action="/transaction-data" method="get">
-        <input type="text" name="searchProduct" placeholder="Search">
-        <button type="submit">Search</button>
-    </form>
+    <div class="addSortFilter">
+        <div class="filter"> 
+            <form action="/transaction-data" method="get">
+                <input type="text" name="searchProduct" placeholder="Search">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
     <br>
+    <br>
+ 
+
     <table>
         <thead>
             <tr>
